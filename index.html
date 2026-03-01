@@ -128,10 +128,19 @@
       {
         month: 'February 2026',
         season: 'snowboarding',
-        title: 'Japan & Forever',
+        title: 'Japan, Valentines & Bdays',
         highlights: ['Austin Millz', 'SB Party', 'Japow'],
         image: 'feb.jpg',
         spotifyEmbed: 'https://open.spotify.com/embed/track/77wAbXWeBBK3A6EYV7IuDW'
+      },
+      {
+        month: '2026 & Beyond',
+        season: 'snowboarding',
+        title: 'Our Future Together',
+        isLetter: true,
+        letterContent: "From that first date at Shanghai Kelly's to all the workouts we hit together to every time we do the hanky panky, being with you has certainly been one of the best things that has happened to me in my life - so grateful that I met you and so excited for the future and hopefully finally being able to settle into our groove in our lives together once I fill my other life buckets fully (let's secure this job offer!) as I never have to worry about my love bucket being filled since I have you. Can't wait to keep growing our love at 1542 Jackson and looking forward to loving you for decades to come! ♥️",
+        image: 'bday.jpeg',
+        spotifyEmbed: 'https://open.spotify.com/embed/track/5m1x4QRgaKmK8cTkZQjGRr'
       }
     ];
 
@@ -228,15 +237,21 @@
                   {currentMonth.title}
                 </h2>
                 
-                {/* Highlights */}
-                <ul className={`${colors.text} text-base mb-6 space-y-2`}>
-                  {currentMonth.highlights.map((highlight, idx) => (
-                    <li key={idx} className="flex items-start">
-                      <span className={`${colors.accent} mr-2`}>•</span>
-                      <span>{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
+                {/* Highlights or Letter */}
+                {currentMonth.isLetter ? (
+                  <p className={`${colors.text} text-lg mb-6 leading-relaxed italic`}>
+                    {currentMonth.letterContent}
+                  </p>
+                ) : (
+                  <ul className={`${colors.text} text-base mb-6 space-y-2`}>
+                    {currentMonth.highlights.map((highlight, idx) => (
+                      <li key={idx} className="flex items-start">
+                        <span className={`${colors.accent} mr-2`}>•</span>
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
                 {/* Spotify Embed */}
                 <div className="mb-6">
