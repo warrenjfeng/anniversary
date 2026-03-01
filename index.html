@@ -41,7 +41,7 @@
         month: 'March 2025',
         season: 'volcano',
         title: 'Where It All Began',
-        note: 'Exploring SLC w/ my baby boo',
+        highlights: ['SLC', 'Skiing in Park City', 'Peruvian food after skiing', 'Sushi date', 'Mt. Tam hike'],
         image: 'march-new.jpg',
         spotifyEmbed: 'https://open.spotify.com/embed/track/3IBhpCAFOJxynTfrw0t2LN'
       },
@@ -49,7 +49,7 @@
         month: 'April 2025',
         season: 'volcano',
         title: 'First SF Visit!',
-        note: 'Picnic @ Baker Beach',
+        highlights: ['Picnic @ Baker Beach', 'First hot pot', "Brother's bbq", 'Cal academy of sciences w/ friends'],
         image: 'april-new.jpg',
         spotifyEmbed: 'https://open.spotify.com/embed/track/6nLvaCZFR1wEzW3sIKpsnr'
       },
@@ -57,15 +57,15 @@
         month: 'May 2025',
         season: 'volcano',
         title: 'Fond Mems',
-        note: 'When it rains it pours ;)',
-        image: 'may.jpg',
+        highlights: ['First visit to NC', 'Krankies!', 'Double date w/ Bill + MC', 'Run to fort pt', 'Lolita Date', "Tony's"],
+        image: 'may-new.jpg',
         spotifyEmbed: 'https://open.spotify.com/embed/track/5h0Jgt873QtgL6nJRBGfT6'
       },
       {
         month: 'June 2025',
         season: 'outside-lands',
         title: 'First Vacation',
-        note: 'Glacier was a dream',
+        highlights: ['Valks game (kinda)', 'Hot pot w/ Sam + T!', 'Impromptu de young date', 'Glacier!', 'Gas station ice cream', 'Waterton (that bbq)', 'Close-ups of bison'],
         image: 'june-new.jpg',
         spotifyEmbed: 'https://open.spotify.com/embed/track/58VNpcJpI5dEKxYByCkbXc'
       },
@@ -73,15 +73,15 @@
         month: 'July 2025',
         season: 'outside-lands',
         title: 'First OC Visit',
-        note: 'Meeting the fam',
-        image: 'july.jpg',
+        highlights: ["Mom's bday celly", 'Hot pot w/ jackie', 'First oc visit'],
+        image: 'july-new.jpg',
         spotifyEmbed: 'https://open.spotify.com/embed/track/5F7Q8pluSbCWA64Gcg5fOv'
       },
       {
         month: 'August 2025',
         season: 'outside-lands',
         title: 'First OSL!',
-        note: 'Discovering JS',
+        highlights: ['OSL! JS + Bunt', 'Hot pot w/ neighbors', 'Sushi + RT rotisserie dates'],
         image: 'august.jpg',
         spotifyEmbed: 'https://open.spotify.com/embed/track/4ml1Eq4wmcdfN0Q6pNEly7'
       },
@@ -89,7 +89,7 @@
         month: 'September 2025',
         season: 'poland',
         title: 'Adventure Awaits',
-        note: 'Our first trip together across the world',
+        highlights: ['Dad visited SF', 'My girl filling in as scorekeeper', 'Omaha crew (steak salad + escape room)', 'Oakland => Omaha => Barcelona => Girona => Krakow => NY => SF journey'],
         image: 'sept-new.jpeg',
         spotifyEmbed: 'https://open.spotify.com/embed/track/7KA4W4McWYRpgf0fWsJZWB'
       },
@@ -97,7 +97,7 @@
         month: 'October 2025',
         season: 'poland',
         title: 'Girona baby',
-        note: 'Exploring new places, seeing new sights',
+        highlights: ['Girona baby', 'Krakow pierogies', 'Goose spot', 'Szarlotka', 'Zakopane', "Chris & Bryan's wedding", 'IKEA date', "Matt & Julia's engagement", "Jess's rooftop potluck", 'Halloween party', 'Climbing comp'],
         image: 'oct.jpg',
         spotifyEmbed: 'https://open.spotify.com/embed/track/724WmnHgjKusSqU40SVAQO'
       },
@@ -105,7 +105,7 @@
         month: 'November 2025',
         season: 'poland',
         title: 'Facetime dates',
-        note: 'Long distance was not easy but we persevered',
+        highlights: ["Bubby's 90th", 'Renaissance hotel', 'Planning for the big move'],
         image: 'nov.jpg',
         spotifyEmbed: 'https://open.spotify.com/embed/track/1qbmS6ep2hbBRaEZFpn7BX'
       },
@@ -113,7 +113,7 @@
         month: 'December 2025',
         season: 'snowboarding',
         title: 'Sunny Cali Christmas + Hannukah',
-        note: 'Road tripped and ate well',
+        highlights: ['Moved to SF!', "Dinner potluck at toan + linh's", 'Hanukkah + Christmas in OC', 'Playing w/ Ollie', 'Morro Bay'],
         image: 'dec.jpg',
         spotifyEmbed: 'https://open.spotify.com/embed/track/4MfLjVBgqn4e8fBKWJk6sU'
       },
@@ -121,7 +121,7 @@
         month: 'January 2026',
         season: 'snowboarding',
         title: 'New Year, Same Us',
-        note: 'More great music, food, and vibes',
+        highlights: ['JS show', 'Drunk history'],
         image: 'jan.jpg',
         spotifyEmbed: 'https://open.spotify.com/embed/track/0nRYjxQQCzMVyjgpTtKjLt'
       },
@@ -129,7 +129,7 @@
         month: 'February 2026',
         season: 'snowboarding',
         title: 'Japan & Forever',
-        note: 'One year down, a lifetime to go',
+        highlights: ['Austin Millz', 'SB Party', 'Japow'],
         image: 'feb.jpg',
         spotifyEmbed: 'https://open.spotify.com/embed/track/77wAbXWeBBK3A6EYV7IuDW'
       }
@@ -227,9 +227,16 @@
                 <h2 className={`text-3xl font-bold ${colors.text} mb-3`}>
                   {currentMonth.title}
                 </h2>
-                <p className={`${colors.text} text-lg mb-6 leading-relaxed`}>
-                  {currentMonth.note}
-                </p>
+                
+                {/* Highlights */}
+                <ul className={`${colors.text} text-base mb-6 space-y-2`}>
+                  {currentMonth.highlights.map((highlight, idx) => (
+                    <li key={idx} className="flex items-start">
+                      <span className={`${colors.accent} mr-2`}>•</span>
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
 
                 {/* Spotify Embed */}
                 <div className="mb-6">
@@ -249,16 +256,18 @@
                   ></iframe>
                 </div>
 
-                {/* Progress Indicator */}
+                {/* Progress Indicator - Now Clickable */}
                 <div className="flex justify-center gap-2 mb-6">
                   {months.map((_, idx) => (
-                    <div
+                    <button
                       key={idx}
-                      className={`h-2 rounded-full transition-all ${
+                      onClick={() => setCurrentIndex(idx)}
+                      className={`h-2 rounded-full transition-all cursor-pointer hover:opacity-80 ${
                         idx === currentIndex 
                           ? `${colors.button} w-8` 
-                          : 'bg-white/20 w-2'
+                          : 'bg-white/20 w-2 hover:bg-white/40'
                       }`}
+                      aria-label={`Go to ${months[idx].month}`}
                     />
                   ))}
                 </div>
