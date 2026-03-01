@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Year Together</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <script type="text/babel">
+    const { useState } = React;
+    
+    // Simple SVG icon components
+    const ChevronLeft = ({ size = 24 }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    );
+    
+    const ChevronRight = ({ size = 24 }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    );
+    
+    const Music = ({ size = 24, className }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        <path d="M9 18V5l12-2v13"></path>
+        <circle cx="6" cy="18" r="3"></circle>
+        <circle cx="18" cy="16" r="3"></circle>
+      </svg>
+    );
+
+    const months = [
+      {
+        month: 'March 2025',
+        season: 'volcano',
+        title: 'Where It All Began',
+        note: 'Exploring SLC w/ my baby boo',
+        image: 'march-new.jpg',
+        spotifyEmbed: 'https://open.spotify.com/embed/track/3IBhpCAFOJxynTfrw0t2LN'
+      },
+      {
+        month: 'April 2025',
+        season: 'volcano',
+        title: 'First SF Visit!',
+        note: 'Picnic @ Baker Beach',
+        image: 'april-new.jpg',
+        spotifyEmbed: 'https://open.spotify.com/embed/track/6nLvaCZFR1wEzW3sIKpsnr'
+      },
+      {
+        month: 'May 2025',
+        season: 'volcano',
+        title: 'Fond Mems',
+        note: 'When it rains it pours ;)',
+        image: 'may.jpg',
+        spotifyEmbed: 'https://open.spotify.com/embed/track/5h0Jgt873QtgL6nJRBGfT6'
+      },
+      {
+        month: 'June 2025',
+        season: 'outside-lands',
+        title: 'First Vacation',
+        note: 'Glacier was a dream',
+        image: 'june-new.jpg',
+        spotifyEmbed: 'https://open.spotify.com/embed/track/58VNpcJpI5dEKxYByCkbXc'
+      },
+      {
+        month: 'July 2025',
+        season: 'outside-lands',
+        title: 'First OC Visit',
+        note: 'Meeting the fam',
+        image: 'july.jpg',
+        spotifyEmbed: 'https://open.spotify.com/embed/track/5F7Q8pluSbCWA64Gcg5fOv'
+      },
+      {
+        month: 'August 2025',
+        season: 'outside-lands',
+        title: 'First OSL!',
+        note: 'Discovering JS',
+        image: 'august.jpg',
+        spotifyEmbed: 'https://open.spotify.com/embed/track/4ml1Eq4wmcdfN0Q6pNEly7'
+      },
+      {
+        month: 'September 2025',
+        season: 'poland',
+        title: 'Adventure Awaits',
+        note: 'Our first trip together across the world',
+        image: 'sept-new.jpeg',
+        spotifyEmbed: 'https://open.spotify.com/embed/track/7KA4W4McWYRpgf0fWsJZWB'
+      },
+      {
+        month: 'October 2025',
+        season: 'poland',
+        title: 'Girona baby',
+        note: 'Exploring new places, seeing new sights',
+        image: 'oct.jpg',
+        spotifyEmbed: 'https://open.spotify.com/embed/track/724WmnHgjKusSqU40SVAQO'
+      },
+      {
+        month: 'November 2025',
+        season: 'poland',
+        title: 'Facetime dates',
+        note: 'Long distance was not easy but we persevered',
+        image: 'nov.jpg',
+        spotifyEmbed: 'https://open.spotify.com/embed/track/1qbmS6ep2hbBRaEZFpn7BX'
+      },
+      {
+        month: 'December 2025',
+        season: 'snowboarding',
+        title: 'Sunny Cali Christmas + Hannukah',
+        note: 'Road tripped and ate well',
+        image: 'dec.jpg',
+        spotifyEmbed: 'https://open.spotify.com/embed/track/4MfLjVBgqn4e8fBKWJk6sU'
+      },
+      {
+        month: 'January 2026',
+        season: 'snowboarding',
+        title: 'New Year, Same Us',
+        note: 'More great music, food, and vibes',
+        image: 'jan.jpg',
+        spotifyEmbed: 'https://open.spotify.com/embed/track/0nRYjxQQCzMVyjgpTtKjLt'
+      },
+      {
+        month: 'February 2026',
+        season: 'snowboarding',
+        title: 'Japan & Forever',
+        note: 'One year down, a lifetime to go',
+        image: 'feb.jpg',
+        spotifyEmbed: 'https://open.spotify.com/embed/track/77wAbXWeBBK3A6EYV7IuDW'
+      }
+    ];
+
+    const getSeasonColors = (season) => {
+      switch(season) {
+        case 'volcano':
+          return {
+            bg: 'from-orange-900 via-red-900 to-gray-900',
+            card: 'bg-gradient-to-br from-red-950/90 to-orange-950/90',
+            text: 'text-orange-100',
+            accent: 'text-orange-400',
+            button: 'bg-orange-600 hover:bg-orange-500'
+          };
+        case 'outside-lands':
+          return {
+            bg: 'from-yellow-600 via-orange-500 to-pink-600',
+            card: 'bg-gradient-to-br from-yellow-900/90 to-pink-900/90',
+            text: 'text-yellow-50',
+            accent: 'text-yellow-300',
+            button: 'bg-yellow-600 hover:bg-yellow-500'
+          };
+        case 'poland':
+          return {
+            bg: 'from-slate-700 via-amber-800 to-stone-900',
+            card: 'bg-gradient-to-br from-slate-900/90 to-amber-950/90',
+            text: 'text-amber-50',
+            accent: 'text-amber-400',
+            button: 'bg-amber-700 hover:bg-amber-600'
+          };
+        case 'snowboarding':
+          return {
+            bg: 'from-blue-900 via-cyan-900 to-slate-900',
+            card: 'bg-gradient-to-br from-blue-950/90 to-cyan-950/90',
+            text: 'text-blue-50',
+            accent: 'text-cyan-300',
+            button: 'bg-cyan-600 hover:bg-cyan-500'
+          };
+        default:
+          return {
+            bg: 'from-gray-800 to-gray-900',
+            card: 'bg-gray-900/90',
+            text: 'text-gray-100',
+            accent: 'text-gray-300',
+            button: 'bg-gray-600 hover:bg-gray-500'
+          };
+      }
+    };
+
+    function AnniversaryScrapbook() {
+      const [currentIndex, setCurrentIndex] = useState(0);
+      const currentMonth = months[currentIndex];
+      const colors = getSeasonColors(currentMonth.season);
+
+      const nextMonth = () => {
+        setCurrentIndex((prev) => (prev + 1) % months.length);
+      };
+
+      const prevMonth = () => {
+        setCurrentIndex((prev) => (prev - 1 + months.length) % months.length);
+      };
+
+      return (
+        <div className={`min-h-screen bg-gradient-to-br ${colors.bg} flex items-center justify-center p-4 transition-all duration-700`}>
+          <div className="max-w-4xl w-full">
+            {/* Header */}
+            <div className="text-center mb-8">
+              <h1 className={`text-4xl md:text-5xl font-bold ${colors.text} mb-2`}>
+                Our Year Together Thru Photo & Sound
+              </h1>
+              <p className={`${colors.accent} text-lg`}>
+                March 2025 - February 2026
+              </p>
+            </div>
+
+            {/* Card */}
+            <div className={`${colors.card} backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden transition-all duration-500`}>
+              {/* Image */}
+              <div className="relative aspect-[4/3] overflow-hidden bg-gray-800">
+                <img 
+                  src={currentMonth.image} 
+                  alt={currentMonth.month}
+                  className="w-full h-full object-cover"
+                  onError={(e) => console.log('Image failed to load:', currentMonth.image)}
+                  onLoad={(e) => console.log('Image loaded successfully:', currentMonth.image)}
+                />
+                <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-sm px-4 py-2 rounded-full">
+                  <p className={`${colors.accent} font-semibold`}>{currentMonth.month}</p>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-6 md:p-8">
+                <h2 className={`text-3xl font-bold ${colors.text} mb-3`}>
+                  {currentMonth.title}
+                </h2>
+                <p className={`${colors.text} text-lg mb-6 leading-relaxed`}>
+                  {currentMonth.note}
+                </p>
+
+                {/* Spotify Embed */}
+                <div className="mb-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Music className={colors.accent} size={20} />
+                    <p className={`${colors.accent} font-semibold`}>Our Song This Month</p>
+                  </div>
+                  <iframe 
+                    src={currentMonth.spotifyEmbed}
+                    width="100%" 
+                    height="152" 
+                    frameBorder="0" 
+                    allowFullScreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy"
+                    className="rounded-lg"
+                  ></iframe>
+                </div>
+
+                {/* Progress Indicator */}
+                <div className="flex justify-center gap-2 mb-6">
+                  {months.map((_, idx) => (
+                    <div
+                      key={idx}
+                      className={`h-2 rounded-full transition-all ${
+                        idx === currentIndex 
+                          ? `${colors.button} w-8` 
+                          : 'bg-white/20 w-2'
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                {/* Navigation */}
+                <div className="flex justify-between items-center">
+                  <button
+                    onClick={prevMonth}
+                    className={`${colors.button} ${colors.text} p-3 rounded-full transition-all transform hover:scale-110 disabled:opacity-50`}
+                    disabled={currentIndex === 0}
+                  >
+                    <ChevronLeft size={24} />
+                  </button>
+                  
+                  <p className={`${colors.text} text-sm`}>
+                    {currentIndex + 1} of {months.length}
+                  </p>
+
+                  <button
+                    onClick={nextMonth}
+                    className={`${colors.button} ${colors.text} p-3 rounded-full transition-all transform hover:scale-110 disabled:opacity-50`}
+                    disabled={currentIndex === months.length - 1}
+                  >
+                    <ChevronRight size={24} />
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="text-center mt-8">
+              <p className={`${colors.text} text-sm opacity-75`}>
+                Happy Anniversary ❤️
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<AnniversaryScrapbook />);
+  </script>
+</body>
+</html>
